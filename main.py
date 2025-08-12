@@ -17,10 +17,14 @@ app.add_middleware(
 
 from pydantic import BaseModel
 
+
+# Request model - what the frontend will send
 class ChatRequest(BaseModel):
     user_input: str
     thread_id: str
 
+
+# Response model - what this API will return
 class ChatResponse(BaseModel):
     response: str  # ✅ Just one string field, matching your return value
 

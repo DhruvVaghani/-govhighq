@@ -1,0 +1,178 @@
+/* Login.css
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to right, #eef2f3, #8e9eab);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.login-box {
+  background-color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+.login-box h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.login-button,
+.google-button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.login-button:hover {
+  background-color: #218838;
+}
+
+.google-button {
+  background-color: #4285F4;
+  color: white;
+}
+
+.google-button:hover {
+  background-color: #3367d6;
+}
+
+.brand-logo {
+  width: 350px;
+  margin-bottom: 1rem;
+} */
+
+/* Login.css */
+
+.login-page {
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at 20% 20%, #1a50b5, #5bb5fa, #1a50b5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Optional background blur blobs */
+.background-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  z-index: 0;
+}
+.shape1 {
+  background: rgb(0, 0, 252);
+  width: 400px;
+  height: 400px;
+  top: -50px;
+  left: -100px;
+}
+.shape2 {
+  background: rgb(0, 0, 252);
+  width: 400px;
+  height: 400px;
+  bottom: -50px;
+  right: -150px;
+}
+
+/* Login card */
+.login-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  width: 50%;
+  height:60%;
+  max-width: 300px;
+  max-height: 400px;
+  text-align: center;
+  color: white;
+  transition: all 0.5s ease; /* 🔁 Smooth transition */
+}
+.login-card:hover {
+  transform: scale(1.04); /* 🧠 Slight zoom */
+  box-shadow: 0 12px 40px rgba(14, 1, 70, 0.38); /* ✨ Deeper shadow */
+}
+
+.brand-logo {
+  width: 250px;
+  margin-bottom: 1rem;
+} */
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+}
+
+.login-input {
+  width: 80%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+.login-button,
+.google-button {
+  width: 90%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-button {
+  background: #28a745;
+  color: white;
+}
+
+.login-button:hover {
+  background: #218838;
+}
+
+.google-button {
+  background: #4285F4;
+  color: white;
+}
+
+.google-button:hover {
+  background: #3367d6;
+}

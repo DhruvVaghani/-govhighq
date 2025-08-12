@@ -4,6 +4,7 @@ import { supabase } from './supabaseClient'
 import Login from './Login'
 import ChatBox from './chatbot'
 import LogoutButton from './LogoutButton'  // ✅ Import it
+import logo from './assets/logo.png'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -22,8 +23,6 @@ function App() {
 
   return (
     <div>
-      <h1>🔒 Authenticated Chat with LLM</h1>
-      <LogoutButton />  ✅ Show logout button
       <ChatBox user={user} />
     </div>
   )
