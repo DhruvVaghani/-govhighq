@@ -29,7 +29,11 @@ jobs:
         run: npm install
         working-directory: frontend
         
-      - name: Build And Deploy
+       - name: Build app
+        run: npm run build
+        working-directory: frontend  # ✅ This was missing
+
+      - name: Deploy to Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
@@ -54,6 +58,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_TREE_02B18900F }}
           action: "close"
+
 
 
 
