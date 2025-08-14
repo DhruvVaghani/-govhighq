@@ -37,3 +37,5 @@ async def chat_endpoint(payload: ChatRequest):
         return {"response": result}
     except Exception as e:
         return {"response": f"❌ Error: {str(e)}"}
+    
+#push to test
