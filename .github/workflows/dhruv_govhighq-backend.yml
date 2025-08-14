@@ -29,8 +29,11 @@ jobs:
           python -m venv venv
           source venv/bin/activate
       
-      - name: Install dependencies
+      - name: Install deps (CI sanity check)
         run: pip install -r rag_requirements_TEST.txt
+
+      - name: Use test requirements for deploy
+        run: cp rag_requirements_TEST.txt requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -68,4 +71,5 @@ jobs:
         with:
           app-name: 'GovHighQ-Backend'
           slot-name: 'Production'
+
           
