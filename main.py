@@ -37,5 +37,19 @@ async def chat_endpoint(payload: ChatRequest):
         return {"response": result}
     except Exception as e:
         return {"response": f"❌ Error: {str(e)}"}
+        
+@app.get("/db/ping")
+def db_ping():
+    uri = os.getenv("SUPABASE_PG_CONN_STRING")
+    if not uri:
+        raise HTTPException(500, "SUPABASE_PG_CONN_STRING not set")
+    try:
+        with psycopg2.connect(uri) as conn:
+            with conn.cursor() as cur:
+                cur.execute("select 1;")
+                return {"ok": True}
+    except Exception as e:
+        raise HTTPException(500, f"DB connect failed: {e}")
+
     
 #push to test
