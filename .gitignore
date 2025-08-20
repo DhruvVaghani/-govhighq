@@ -6,7 +6,6 @@ rag_test_env/
 
 # Ignore local configuration and secrets
 .env
-config.py
 
 # Ignore Supabase secrets inside frontend
 frontend/.env
