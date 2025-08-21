@@ -37,6 +37,12 @@ async def chat_endpoint(payload: ChatRequest):
         return {"response": result}
     except Exception as e:
         return {"response": f"❌ Error: {str(e)}"}
+@app.get("/health/config-db")
+def health_config_db():
+    import os
+    uri = os.getenv("SUPABASE_PG_CONN_STRING")
+    return {"has_conn_string": bool(uri), "length": len(uri or 0)}
+
         
 @app.get("/db/ping")
 def db_ping():
