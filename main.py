@@ -4,7 +4,7 @@ from Rag_model_TEST import run_llm  # Import your wrapper function
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
 import os, re, traceback
-
+import psycopg2
 app = FastAPI()
 
 app.add_middleware(
