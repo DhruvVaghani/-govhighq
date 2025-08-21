@@ -86,7 +86,7 @@ function ChatBox({ user }) {
     {
     user_input: userMessage,
     thread_id: user.id
-  })
+  });
 
       const botResponse = res.data.response
       setMessages(prev => [...prev, { role: "bot", text: botResponse }])
