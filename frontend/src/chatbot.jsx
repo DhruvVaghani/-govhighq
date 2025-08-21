@@ -80,13 +80,12 @@ function ChatBox({ user }) {
     const userMessage = input
     setMessages(prev => [...prev, { role: "user", text: userMessage }])
     setInput("")
-
-    const res = await axios.post(
-    `${import.meta.env.VITE_API_BASE}/chat`,
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE}/chat`,
     {
     user_input: userMessage,
     thread_id: user.id
-  });
+      })
 
       const botResponse = res.data.response
       setMessages(prev => [...prev, { role: "bot", text: botResponse }])
