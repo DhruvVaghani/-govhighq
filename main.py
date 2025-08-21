@@ -2,8 +2,8 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from Rag_model_TEST import run_llm  # Import your wrapper function
 from fastapi.middleware.cors import CORSMiddleware
-
-
+from fastapi import HTTPException
+import os, re, traceback
 
 app = FastAPI()
 
@@ -43,19 +43,30 @@ def health_config_db():
     uri = os.getenv("SUPABASE_PG_CONN_STRING")
     return {"has_conn_string": bool(uri), "length": len(uri or 0)}
 
+def _redact(uri: str) -> str:
+    return re.sub(r'(postgresql://[^:]+:)([^@]+)(@)', r'\1***\3', uri or '')
         
 @app.get("/db/ping")
 def db_ping():
     uri = os.getenv("SUPABASE_PG_CONN_STRING")
     if not uri:
         raise HTTPException(500, "SUPABASE_PG_CONN_STRING not set")
+
+    # Supabase always requires SSL
+    if "sslmode=" not in uri:
+        uri = uri + ("&" if "?" in uri else "?") + "sslmode=require"
+
     try:
-        with psycopg2.connect(uri) as conn:
-            with conn.cursor() as cur:
-                cur.execute("select 1;")
-                return {"ok": True}
+        conn = psycopg2.connect(uri)
+        cur = conn.cursor()
+        cur.execute("select 1;")
+        row = cur.fetchone()
+        cur.close()
+        conn.close()
+        return {"ok": True, "row": row}
     except Exception as e:
-        raise HTTPException(500, f"DB connect failed: {e}")
+        print("DB connect failed:\n", traceback.format_exc())
+        raise HTTPException(500, f"DB connect failed: {e}; uri={_redact(uri)}")
 
     
 #push to test
