@@ -6,7 +6,11 @@ from fastapi import HTTPException
 import os, re, traceback
 import psycopg2
 app = FastAPI()
+os.environ['PYTHONUNBUFFERED'] = '1'
 
+# Add immediate flush to all prints
+import functools
+print = functools.partial(print, flush=True)
 
 from fastapi import HTTPException
 import json, logging, traceback, uuid
@@ -78,7 +82,21 @@ def health_config_db():
 
 def _redact(uri: str) -> str:
     return re.sub(r'(postgresql://[^:]+:)([^@]+)(@)', r'\1***\3', uri or '')
-        
+
+
+@app.get("/test/error")
+def test_error():
+    """Test endpoint to generate an error and see if logging works"""
+    logger.error("🧪 This is a test error message")
+    print("🧪 Test error via print", flush=True)
+    try:
+        # Intentionally cause an error
+        result = 1 / 0
+    except Exception as e:
+        logger.error(f"🧪 Caught test exception: {e}")
+        logger.error(f"🧪 Full traceback: {traceback.format_exc()}")
+        return {"error": "Test error generated - check logs"}
+
 @app.get("/db/ping")
 def db_ping():
     uri = os.getenv("SUPABASE_PG_CONN_STRING")
