@@ -88,9 +88,6 @@ def search_docs(query: str) -> str:
 
     return "\n\n".join(results)
 
-# from langchain_community.tools import DuckDuckGoSearchResults
-
-# search_web = DuckDuckGoSearchResults(output_format="list", backend="news")
 
 
 
