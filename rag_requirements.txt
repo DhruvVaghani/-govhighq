@@ -15,4 +15,4 @@ azure-search-documents
 azure-identity
 psycopg2-binary
 # langgraph-checkpoint-postgres
-duckduckgo-search>=6
+
