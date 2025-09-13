@@ -7,6 +7,11 @@ import os, re, traceback
 import psycopg2
 app = FastAPI()
 
+
+from fastapi import HTTPException
+import json, logging, traceback, uuid
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Or replace with specific origin like ["http://localhost:5173"]
@@ -30,13 +35,33 @@ class ChatResponse(BaseModel):
 
 
 # 5. Expose LLM via /chat POST endpoint
+# @app.post("/chat", response_model=ChatResponse)
+# async def chat_endpoint(payload: ChatRequest):
+#     try:
+#         result = run_llm(payload.user_input, payload.thread_id)
+#         return {"response": result}
+#     except Exception as e:
+#         return {"response": f"❌ Error: {str(e)}"}
+
+#trying to debug the error
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(payload: ChatRequest):
+    # Ensure strings (avoid None) and give thread_id a fallback
+    user_input = str(payload.user_input or "")
+    thread_id  = payload.thread_id or f"web-{uuid.uuid4()}"
+
+    logging.info("INCOMING /chat payload: %s", json.dumps({"user_input": user_input[:200], "thread_id": thread_id}))
+
     try:
-        result = run_llm(payload.user_input, payload.thread_id)
+        result = run_llm(user_input=user_input, thread_id=thread_id)
         return {"response": result}
     except Exception as e:
-        return {"response": f"❌ Error: {str(e)}"}
+        # PRINT FULL TRACE TO LOG STREAM
+        logging.error("RUN_LLM FAILED:\n%s", traceback.format_exc())
+        # Keep your simple JSON return for the UI
+        return {"response": f"❌❌❌❌ Error: {e}"}
+
+
 @app.get("/health/config-db")
 def health_config_db():
     import os
