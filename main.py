@@ -10,7 +10,14 @@ app = FastAPI()
 
 from fastapi import HTTPException
 import json, logging, traceback, uuid
+import sys, logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)],
+    force=True,  # override any default logging config
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -46,20 +53,21 @@ class ChatResponse(BaseModel):
 #trying to debug the error
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(payload: ChatRequest):
-    # Ensure strings (avoid None) and give thread_id a fallback
     user_input = str(payload.user_input or "")
     thread_id  = payload.thread_id or f"web-{uuid.uuid4()}"
 
-    logging.info("INCOMING /chat payload: %s", json.dumps({"user_input": user_input[:200], "thread_id": thread_id}))
+    msg = {"user_input": user_input[:200], "thread_id": thread_id}
+    logging.info("INCOMING /chat payload: %s", json.dumps(msg))
+    print("INCOMING /chat payload:", msg, flush=True)  # <-- extra safety
 
     try:
         result = run_llm(user_input=user_input, thread_id=thread_id)
         return {"response": result}
     except Exception as e:
-        # PRINT FULL TRACE TO LOG STREAM
-        logging.error("RUN_LLM FAILED:\n%s", traceback.format_exc())
-        # Keep your simple JSON return for the UI
-        return {"response": f"❌❌❌❌ Error: {e}"}
+        tb = traceback.format_exc()
+        logging.error("RUN_LLM FAILED:\n%s", tb)
+        print("RUN_LLM FAILED:\n", tb, flush=True)      # <-- extra safety
+        return {"response": f"❌ Error: {e}"}
 
 
 @app.get("/health/config-db")
