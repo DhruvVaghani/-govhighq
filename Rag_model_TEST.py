@@ -88,13 +88,13 @@ def search_docs(query: str) -> str:
 
     return "\n\n".join(results)
 
-from langchain_community.tools import DuckDuckGoSearchResults
+# from langchain_community.tools import DuckDuckGoSearchResults
 
-search_web = DuckDuckGoSearchResults(output_format="list", backend="news")
+# search_web = DuckDuckGoSearchResults(output_format="list", backend="news")
 
 
 
-tools = [search_docs, search_web]
+tools = [search_docs]
 
 # Define state structure for LangGraph -- this is the structure that will be used to pass messages between nodes in the graph
 class State(TypedDict):
@@ -257,7 +257,6 @@ def chatbot_node(state: State) -> State:
     "In your final response, if you used a tool call you are required to include the document citations exactly as returned by the tool. "
     "Use the formatting `📄 **Source: xyz.pdf**` without altering it. "
     "Always include document citations explicitly (e.g., 📄 Source: xyz.pdf or Source:xyz.doc) in your answers at the end of your response "
-    "Use the `search_web` tool when the user explicitly asks to search the web. "
     "when tool results contain document content. If multiple chunks are used, cite each source."
     )
     system_msgs = [msg for msg in messages if msg.type == "system"]
