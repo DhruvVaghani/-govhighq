@@ -293,51 +293,54 @@
 
 .avatar-sep { height: 1px; background: #f3f4f6; width: 100%; }
 
+.avatar-menu-actions {
+  display: flex;
+  gap: 8px;
+  padding: 8px 4px 12px;   /* some spacing below header/separator */
+  flex-wrap: nowrap;       /* set to wrap if you want stacking on tiny widths */
+}
+
 /* Base button style: bigger, rectangular with rounded corners */
+/* Update: button style to work in a row */
 .avatar-menu-item {
-  width: 100%;
-  display: block;
-  text-align: center;        /* center the label */
+  flex: 1 1 0;             /* share space evenly */
+  min-width: 120px;        /* prevent overly tiny buttons */
+  text-align: center;
   border: none;
   cursor: pointer;
 
-  /* size & shape */
-  min-height: 44px;          /* bigger hit area */
-  padding: 12px 16px;        /* larger padding */
-  margin: 6px 4px;           /* inset from edges */
-  border-radius: 10px;       /* rounded rectangle */
+  min-height: 44px;
+  padding: 12px 16px;
+  margin: 0;               /* was: 6px 4px; remove to fit side-by-side */
+  border-radius: 10px;
 
-  /* typography */
-  font-size: 0.98rem;        /* larger text */
+  font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.2;
 
-  /* default look */
   background: #f3f4f6;
   color: #374151;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-.avatar-menu-item:hover {
-  background: #e5e7eb;
-}
+.avatar-menu-item:hover { background: #e5e7eb; }
 
 /* Profile (primary) — blue */
 .avatar-menu-item.primary {
-  background: #e6efff;       /* soft blue */
-  color: #1e3a8a;            /* deep blue text */
+  background: #e6efff;
+  color: #1e3a8a;
 }
 .avatar-menu-item.primary:hover {
-  background: #dbe9ff;       /* slightly darker on hover */
+  background: #dbe9ff;
   color: #1d4ed8;
 }
 
 /* Sign out (danger) — red */
 .avatar-menu-item.danger {
-  background: #fee2e2;       /* soft red */
+  background: #fee2e2;
   color: #991b1b;
 }
 .avatar-menu-item.danger:hover {
-  background: #fecaca;       /* darker on hover */
+  background: #fecaca;
   color: #7f1d1d;
 }
 
