@@ -162,52 +162,7 @@
 /* ===== ChatBox.css (full, updated) ===== */
 
 /* Fill the entire viewport, ignore parent widths */
-.avatar-menu {
-  padding: 8px;                /* add inner padding so text isn't flush to edge */
-  min-width: 260px;            /* a bit wider for labels */
-  max-width: 320px;
-  overflow-x: hidden;          /* prevent horizontal bleed */
-}
 
-/* Header text spacing inside the dropdown */
-.avatar-menu-header {
-  padding: 12px 14px 8px;      /* a touch more top/side padding */
-}
-
-/* Menu items: add side padding + slight inset so text doesn't clip */
-.avatar-menu-item {
-  display: block;
-  padding: 10px 12px;          /* more left/right padding */
-  margin: 2px 4px;             /* inset from the dropdown border */
-  border-radius: 8px;
-}
-
-/* Make the last button (Sign out) colored */
-.avatar-menu button:last-child {
-  background: #fee2e2;         /* soft red */
-  color: #991b1b;
-}
-.avatar-menu button:last-child:hover {
-  background: #fecaca;         /* darker on hover */
-  color: #7f1d1d;
-}
-If your “Sign out” isn’t the last button, give it a class (e.g., className="avatar-menu-item danger") and use:
-
-css
-Copy code
-.avatar-menu-item.danger { background:#fee2e2; color:#991b1b; }
-.avatar-menu-item.danger:hover { background:#fecaca; color:#7f1d1d; }
-
-
-
-
-You said:
-please can you give me the entire css.code ?
-
-
-ChatGPT said:
-css
-Copy code
 /* ===== ChatBox.css (full, updated) ===== */
 
 /* Fill the entire viewport, ignore parent widths */
@@ -291,22 +246,23 @@ Copy code
 }
 
 /* Dropdown menu */
+/* Dropdown menu (wider + comfy padding so text doesn't clip) */
 .avatar-menu {
   position: absolute;
-  top: calc(100% + 8px);        /* show below avatar */
+  top: calc(100% + 8px);
   right: 0;
   left: auto;
   margin-top: 0;
 
   /* sizing & scrolling */
-  min-width: 260px;             /* wider for readability */
-  max-width: 320px;             /* prevent off-screen overflow */
-  max-height: 60vh;             /* scroll if too tall */
+  min-width: 300px;          /* was 260px — wider so labels fit */
+  max-width: 380px;
+  max-height: 60vh;
   overflow: auto;
   overflow-x: hidden;
 
   /* box + feel */
-  padding: 8px;                 /* inner padding so text isn't flush to edge */
+  padding: 12px;             /* was 8px — more breathing room */
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -320,8 +276,9 @@ Copy code
   overflow-wrap: anywhere;
 }
 
+/* Header inside dropdown (name + email) */
 .avatar-menu-header {
-  padding: 12px 14px 8px;
+  padding: 14px 16px 10px;   /* slightly bigger */
 }
 .avatar-menu-name,
 .avatar-menu-email {
@@ -329,38 +286,61 @@ Copy code
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;      /* ellipsis if too long */
+  text-overflow: ellipsis;
 }
-.avatar-menu-name  { font-size: 0.95rem; font-weight: 600; color: #111827; }
-.avatar-menu-email { margin-top: 2px; font-size: 0.8rem;  color: #6b7280; }
+.avatar-menu-name  { font-size: 1rem;   font-weight: 600; color: #111827; }
+.avatar-menu-email { margin-top: 2px;   font-size: 0.85rem; color: #6b7280; }
 
 .avatar-sep { height: 1px; background: #f3f4f6; width: 100%; }
 
-/* Menu items */
+/* Base button style: bigger, rectangular with rounded corners */
 .avatar-menu-item {
   width: 100%;
   display: block;
-  text-align: left;
-  background: transparent;
+  text-align: center;        /* center the label */
   border: none;
-  padding: 10px 12px;           /* more left/right padding */
-  margin: 2px 4px;              /* inset from the dropdown border */
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #374151;
   cursor: pointer;
-}
-.avatar-menu-item:hover { background: #f9fafb; }
 
-/* Emphasized 'Sign out' button (add className='avatar-menu-item danger' in JSX if needed) */
+  /* size & shape */
+  min-height: 44px;          /* bigger hit area */
+  padding: 12px 16px;        /* larger padding */
+  margin: 6px 4px;           /* inset from edges */
+  border-radius: 10px;       /* rounded rectangle */
+
+  /* typography */
+  font-size: 0.98rem;        /* larger text */
+  font-weight: 600;
+  line-height: 1.2;
+
+  /* default look */
+  background: #f3f4f6;
+  color: #374151;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.avatar-menu-item:hover {
+  background: #e5e7eb;
+}
+
+/* Profile (primary) — blue */
+.avatar-menu-item.primary {
+  background: #e6efff;       /* soft blue */
+  color: #1e3a8a;            /* deep blue text */
+}
+.avatar-menu-item.primary:hover {
+  background: #dbe9ff;       /* slightly darker on hover */
+  color: #1d4ed8;
+}
+
+/* Sign out (danger) — red */
 .avatar-menu-item.danger {
-  background: #fee2e2;          /* soft red */
+  background: #fee2e2;       /* soft red */
   color: #991b1b;
 }
 .avatar-menu-item.danger:hover {
-  background: #fecaca;
+  background: #fecaca;       /* darker on hover */
   color: #7f1d1d;
 }
+
 
 /* The center area expands and scrolls */
 .chat-messages {
