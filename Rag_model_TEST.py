@@ -370,16 +370,16 @@ def setup_postgres_tables():
 
 
 
-# # One-time setup function - call this once when you first deploy/setup your app
-# def initialize_database():
-#     """Call this once to set up the database tables"""
-#     print("🔧 Setting up database tables...")
-#     if setup_postgres_tables():
-#         print("✅ Database initialization complete")
-#         return True
-#     else:
-#         print("❌ Database initialization failed")
-#         return False
+# One-time setup function - call this once when you first deploy/setup your app
+def initialize_database():
+    """Call this once to set up the database tables"""
+    print("🔧 Setting up database tables...")
+    if setup_postgres_tables():
+        print("✅ Database initialization complete")
+        return True
+    else:
+        print("❌ Database initialization failed")
+        return False
 
 
 
