@@ -159,8 +159,11 @@
 
 /* --- Avatar styles --- */
 /* Fill the entire viewport, ignore parent widths */
+/* ===== ChatBox.css (full, updated) ===== */
+
+/* Fill the entire viewport, ignore parent widths */
 .chat-page {
-  position: fixed;      /* key: escape any narrow parent */
+  position: fixed;      /* escape any narrow parent container */
   inset: 0;             /* top:0 right:0 bottom:0 left:0 */
   display: flex;
   flex-direction: column;
@@ -178,15 +181,17 @@
   align-items: center;
   justify-content: space-between;
   height: 56px;
-  padding: 8px 20px;
+  padding: 8px 20px;            /* extra right padding so avatar isn't clipped */
   background: #fff;
   border-bottom: 1px solid #e5e7eb;
+  overflow: visible;            /* allow dropdown to render outside header */
 }
 
-/* Logo + avatar (unchanged) */
-.logo-left { height: 34px; object-fit: contain; }
-.chat-header-right { display: flex; align-items: center; gap: 12px; }
-
+/* Logo + avatar */
+.logo-left {
+  height: 34px;                 /* ~20% larger logo */
+  object-fit: contain;
+}
 .chat-header-right {
   display: flex;
   align-items: center;
@@ -194,7 +199,10 @@
 }
 
 /* --- Avatar (small circle at top-right) --- */
-.avatar-wrap { position: relative; }
+.avatar-wrap {
+  position: relative;
+  overflow: visible;            /* prevent clipping of dropdown */
+}
 
 /* If your Avatar renders a <button>, target it here */
 .avatar-wrap button {
@@ -233,40 +241,51 @@
   font-size: 0.72rem;
 }
 
-/* Optional dropdown if you use it */
+/* Dropdown menu */
 .avatar-menu {
   position: absolute;
+  top: calc(100% + 8px);        /* show below avatar */
   right: 0;
-  margin-top: 8px;
-  width: 220px;
+  left: auto;
+  margin-top: 0;
+
+  min-width: 240px;             /* wider for readability */
+  max-width: 320px;             /* prevent off-screen overflow */
+  max-height: 60vh;             /* scroll if too tall */
+  overflow: auto;
+
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  overflow: hidden;
   z-index: 200;
   animation: fadeInUp 0.15s ease both;
+
+  white-space: normal;          /* allow wrapping */
+  word-break: break-word;       /* break long tokens if necessary */
+  overflow-wrap: anywhere;      /* last-resort wrap */
 }
-.avatar-menu-header { padding: 10px 12px; }
-.avatar-menu-name {
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #111827;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
+
+.avatar-menu-header { padding: 12px 14px; }
+.avatar-menu-name,
 .avatar-menu-email {
-  margin-top: 2px;
-  font-size: 0.78rem;
-  color: #6b7280;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;      /* ellipsis if too long */
 }
+.avatar-menu-name  { font-size: 0.92rem; font-weight: 600; color: #111827; }
+.avatar-menu-email { margin-top: 2px; font-size: 0.78rem; color: #6b7280; }
+
 .avatar-sep { height: 1px; background: #f3f4f6; width: 100%; }
+
 .avatar-menu-item {
   width: 100%;
   text-align: left;
   background: transparent;
   border: none;
-  padding: 10px 12px;
+  padding: 10px 14px;           /* slightly larger hit area */
   font-size: 0.9rem;
   color: #374151;
   cursor: pointer;
