@@ -95,7 +95,7 @@ function getInitials(name, email) {
   return 'U'
 }
 
-function Avatar({ profile, size = 36 }) {
+function Avatar({ profile, size = 30 }) {
   const [open, setOpen] = useState(false)
   const toggle = useCallback((e) => {
     e.stopPropagation()
