@@ -162,6 +162,55 @@
 /* ===== ChatBox.css (full, updated) ===== */
 
 /* Fill the entire viewport, ignore parent widths */
+.avatar-menu {
+  padding: 8px;                /* add inner padding so text isn't flush to edge */
+  min-width: 260px;            /* a bit wider for labels */
+  max-width: 320px;
+  overflow-x: hidden;          /* prevent horizontal bleed */
+}
+
+/* Header text spacing inside the dropdown */
+.avatar-menu-header {
+  padding: 12px 14px 8px;      /* a touch more top/side padding */
+}
+
+/* Menu items: add side padding + slight inset so text doesn't clip */
+.avatar-menu-item {
+  display: block;
+  padding: 10px 12px;          /* more left/right padding */
+  margin: 2px 4px;             /* inset from the dropdown border */
+  border-radius: 8px;
+}
+
+/* Make the last button (Sign out) colored */
+.avatar-menu button:last-child {
+  background: #fee2e2;         /* soft red */
+  color: #991b1b;
+}
+.avatar-menu button:last-child:hover {
+  background: #fecaca;         /* darker on hover */
+  color: #7f1d1d;
+}
+If your “Sign out” isn’t the last button, give it a class (e.g., className="avatar-menu-item danger") and use:
+
+css
+Copy code
+.avatar-menu-item.danger { background:#fee2e2; color:#991b1b; }
+.avatar-menu-item.danger:hover { background:#fecaca; color:#7f1d1d; }
+
+
+
+
+You said:
+please can you give me the entire css.code ?
+
+
+ChatGPT said:
+css
+Copy code
+/* ===== ChatBox.css (full, updated) ===== */
+
+/* Fill the entire viewport, ignore parent widths */
 .chat-page {
   position: fixed;      /* escape any narrow parent container */
   inset: 0;             /* top:0 right:0 bottom:0 left:0 */
@@ -249,24 +298,31 @@
   left: auto;
   margin-top: 0;
 
-  min-width: 240px;             /* wider for readability */
+  /* sizing & scrolling */
+  min-width: 260px;             /* wider for readability */
   max-width: 320px;             /* prevent off-screen overflow */
   max-height: 60vh;             /* scroll if too tall */
   overflow: auto;
+  overflow-x: hidden;
 
+  /* box + feel */
+  padding: 8px;                 /* inner padding so text isn't flush to edge */
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.12);
   z-index: 200;
   animation: fadeInUp 0.15s ease both;
 
-  white-space: normal;          /* allow wrapping */
-  word-break: break-word;       /* break long tokens if necessary */
-  overflow-wrap: anywhere;      /* last-resort wrap */
+  /* text wrapping safeguards */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
-.avatar-menu-header { padding: 12px 14px; }
+.avatar-menu-header {
+  padding: 12px 14px 8px;
+}
 .avatar-menu-name,
 .avatar-menu-email {
   display: block;
@@ -275,22 +331,36 @@
   overflow: hidden;
   text-overflow: ellipsis;      /* ellipsis if too long */
 }
-.avatar-menu-name  { font-size: 0.92rem; font-weight: 600; color: #111827; }
-.avatar-menu-email { margin-top: 2px; font-size: 0.78rem; color: #6b7280; }
+.avatar-menu-name  { font-size: 0.95rem; font-weight: 600; color: #111827; }
+.avatar-menu-email { margin-top: 2px; font-size: 0.8rem;  color: #6b7280; }
 
 .avatar-sep { height: 1px; background: #f3f4f6; width: 100%; }
 
+/* Menu items */
 .avatar-menu-item {
   width: 100%;
+  display: block;
   text-align: left;
   background: transparent;
   border: none;
-  padding: 10px 14px;           /* slightly larger hit area */
+  padding: 10px 12px;           /* more left/right padding */
+  margin: 2px 4px;              /* inset from the dropdown border */
+  border-radius: 8px;
   font-size: 0.9rem;
   color: #374151;
   cursor: pointer;
 }
 .avatar-menu-item:hover { background: #f9fafb; }
+
+/* Emphasized 'Sign out' button (add className='avatar-menu-item danger' in JSX if needed) */
+.avatar-menu-item.danger {
+  background: #fee2e2;          /* soft red */
+  color: #991b1b;
+}
+.avatar-menu-item.danger:hover {
+  background: #fecaca;
+  color: #7f1d1d;
+}
 
 /* The center area expands and scrolls */
 .chat-messages {
