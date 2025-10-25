@@ -283,8 +283,8 @@ def route_tools(state: State):
     return "end"
 
 # Create LangGraph checkpointing tables if not already created -- this function initializes the PostgreSQL tables needed for LangGraph to work with PostgresSaver
-DB_URI = os.getenv("SUPABASE_PG_CONN_STRING") 
-
+# DB_URI = os.getenv("SUPABASE_PG_CONN_STRING") 
+DB_URI = "postgresql://postgres:Kingatbest123@db.uqeakgyxctjgyihllccz.supabase.co:5432/postgres?sslmode=require"
 # DB_URI = "postgresql://postgres:Kingatbest123@127.0.0.1:5432/postgres?sslmode=require"
 # postgresql+psycopg2://postgres:yourpassword@127.0.0.1:5432/yourdbname
 
@@ -339,7 +339,7 @@ def run_llm_with_context(user_input: str, thread_id: str):
             )
             return final_state["messages"][-1].content
     except Exception as e:
-        print(f"❌ Error in run_llm_with_context: {e}")
+        print(f"❌❌❌ Error in run_llm_with_context: {e}")
         raise
 
 
@@ -349,7 +349,7 @@ run_llm = run_llm_with_context
 
 
 
-
+import traceback
 
 def setup_postgres_tables():
     """Initialize PostgreSQL tables using PostgresSaver.setup()"""
@@ -360,7 +360,8 @@ def setup_postgres_tables():
             print("✅ PostgreSQL tables initialized successfully using .setup()")
             return True
     except Exception as e:
-        print(f"❌ Failed to initialize PostgreSQL tables: {e}")
+        print(f"❌❌❌ Failed to initialize PostgreSQL tables: {e}")
+        print("Traceback:\n", traceback.format_exc())
         return False
 
 
@@ -374,7 +375,7 @@ def initialize_database():
         print("✅ Database initialization complete")
         return True
     else:
-        print("❌ Database initialization failed")
+        print("❌❌❌ Database initialization failed")
         return False
 
 

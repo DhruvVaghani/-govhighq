@@ -71,7 +71,7 @@ async def chat_endpoint(payload: ChatRequest):
         tb = traceback.format_exc()
         logging.error("RUN_LLM FAILED:\n%s", tb)
         print("RUN_LLM FAILED:\n", tb, flush=True)      # <-- extra safety
-        return {"response": f"❌ Error: {e}"}
+        return {"response": f"❌❌ Error: {e}"}
 
 
 @app.get("/health/config-db")
@@ -82,6 +82,12 @@ def health_config_db():
 
 def _redact(uri: str) -> str:
     return re.sub(r'(postgresql://[^:]+:)([^@]+)(@)', r'\1***\3', uri or '')
+
+@app.post("/db/init")
+def db_init():
+    from Rag_model_TEST import initialize_database
+    ok = initialize_database()
+    return {"ok": ok}
 
 
 @app.get("/test/error")
