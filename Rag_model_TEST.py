@@ -284,7 +284,7 @@ def route_tools(state: State):
 
 # Create LangGraph checkpointing tables if not already created -- this function initializes the PostgreSQL tables needed for LangGraph to work with PostgresSaver
 # DB_URI = os.getenv("SUPABASE_PG_CONN_STRING") 
-DB_URI = "postgresql://postgres:Kingatbest123@db.uqeakgyxctjgyihllccz.supabase.co:5432/postgres?sslmode=require"
+DB_URI = "postgresql://postgres:Kingatbest123@db.uvasrdqzqpsbfmcbisyg.supabase.co:5432/postgres?sslmode=require"
 # DB_URI = "postgresql://postgres:Kingatbest123@127.0.0.1:5432/postgres?sslmode=require"
 # postgresql+psycopg2://postgres:yourpassword@127.0.0.1:5432/yourdbname
 
