@@ -1,0 +1,87 @@
+/* Theme toggle button (top-right, visible on Login and Chat pages) */
+.theme-toggle {
+  position: relative; /* not fixed so it flows with surrounding layout */
+  z-index: 5;
+  width: 40px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid rgba(13,64,150,0.08);
+  background: var(--toggle-bg, #ffffff);
+  color: var(--toggle-color, #0a1f33);
+  box-shadow: 0 6px 18px rgba(13,38,90,0.08);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.18s ease, transform 0.08s ease, color 0.18s ease;
+}
+.theme-toggle:hover { transform: translateY(-2px); }
+
+/* Ensure theme classes toggle the variable set from earlier edits */
+/* Light theme (uses your light tokens already defined) */
+body.light-theme {
+  --nav-bg: #ffffff;
+  --ink: #0a1f33;
+  --ink-soft: rgba(10, 31, 51, 0.7);
+  --page-gradient: linear-gradient(180deg, #e3e9f7 0%, #ffffff 100%);
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --card-border: rgba(12, 60, 140, 0.12);
+  --card-shadow: 0 16px 36px rgba(13, 38, 90, 0.12);
+  --accent: #0e4aa4;
+  --accent-strong: #1e6ae6;
+  --muted: rgba(32, 54, 93, 0.72);
+  --warning: #f59f0b;
+  --success: #198754;
+  --field-bg: rgba(255, 255, 255, 0.92);
+  --field-border: rgba(13, 64, 150, 0.18);
+  /* buttons that should remain identical across themes */
+  --btn-accent: #1e6ae6; /* primary blue */
+  --btn-success: #198754; /* success/green */
+  --toggle-bg: #ffffff;
+  --toggle-color: #0a1f33;
+  /* message bubble border for light theme (dark stroke) */
+  --bubble-border: rgba(0,0,0,0.12);
+  background: var(--page-gradient);
+  color: var(--ink);
+}
+
+/* Dark theme tokens (keep your dark tokens from indexdark.css) */
+body.dark-theme {
+  --bg: #1b1b1b;
+  --surface: #2a2a2a;
+  --surface-alt: #3b3b3b;
+  --text: rgba(255,255,255,0.92);
+  --border: rgba(255,255,255,0.12);
+  --primary: #183E74;
+  --primary-hover: #23508F;
+  --link: #2f66b8;
+  --link-hover: #23508f;
+
+  /* Map common names used by components */
+  --nav-bg: var(--surface);
+  --ink: var(--text);
+  --card-bg: var(--surface-alt);
+  --card-border: var(--border);
+  --card-shadow: 0 8px 28px rgba(2,6,23,0.6);
+  --page-gradient: linear-gradient(180deg,#0f1724 0%,#09121a 100%);
+  --field-bg: var(--surface-alt);
+  --field-border: var(--border);
+  /* buttons keep same color as light theme */
+  --btn-accent: #1e6ae6; /* same as light */
+  --btn-success: #198754; /* same as light */
+  --toggle-bg: #ffffff;
+  --toggle-color: #0a1f33;
+  /* message bubble border for dark theme (light stroke) */
+  --bubble-border: rgba(255,255,255,0.12);
+  background: var(--page-gradient);
+  color: var(--text);
+}
+
+/* Make sure theme toggle contrasts in dark mode */
+body.dark-theme .theme-toggle {
+  background: var(--nav-bg);
+  color: var(--ink);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+}
